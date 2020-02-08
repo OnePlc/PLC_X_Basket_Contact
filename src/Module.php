@@ -23,6 +23,7 @@ use Laminas\Db\Adapter\AdapterInterface;
 use Laminas\EventManager\EventInterface as Event;
 use Laminas\ModuleManager\ModuleManager;
 use OnePlace\Basket\Model\BasketTable;
+use OnePlace\Basket\Contact\Controller\ContactController;
 
 class Module {
     /**
@@ -47,11 +48,11 @@ class Module {
         // This method is called once the MVC bootstrapping is complete
         $application = $e->getApplication();
         $container    = $application->getServiceManager();
-        //$oDbAdapter = $container->get(AdapterInterface::class);
-        //$tableGateway = $container->get(BasketTable::class);
+        $oDbAdapter = $container->get(AdapterInterface::class);
+        $tableGateway = $container->get(BasketTable::class);
 
         # Register Filter Plugin Hook
-        //CoreEntityController::addHook('contact-view-before',(object)['sFunction'=>'attachContactForm','oItem'=>new ContactController($oDbAdapter,$tableGateway,$container)]);
+        CoreEntityController::addHook('basket-view-before',(object)['sFunction'=>'attachContact','oItem'=>new ContactController($oDbAdapter,$tableGateway,$container)]);
         //CoreEntityController::addHook('contacthistory-add-before-save',(object)['sFunction'=>'attachContactToBasket','oItem'=>new ContactController($oDbAdapter,$tableGateway,$container)]);
     }
 
