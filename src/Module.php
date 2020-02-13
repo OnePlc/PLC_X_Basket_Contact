@@ -24,6 +24,7 @@ use Laminas\EventManager\EventInterface as Event;
 use Laminas\ModuleManager\ModuleManager;
 use OnePlace\Basket\Model\BasketTable;
 use OnePlace\Basket\Contact\Controller\ContactController;
+use OnePlace\Contact\Model\ContactTable;
 
 class Module {
     /**
@@ -83,7 +84,7 @@ class Module {
                     $oDbAdapter = $container->get(AdapterInterface::class);
                     return new Controller\InstallController(
                         $oDbAdapter,
-                        $container->get(Model\ContactTable::class),
+                        $container->get(BasketTable::class),
                         $container
                     );
                 },

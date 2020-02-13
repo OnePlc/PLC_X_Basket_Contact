@@ -19,7 +19,7 @@ namespace OnePlace\Basket\Contact\Controller;
 
 use Application\Controller\CoreUpdateController;
 use Application\Model\CoreEntityModel;
-use OnePlace\Basket\Contact\Model\ContactTable;
+use OnePlace\Basket\Model\BasketTable;
 use Laminas\View\Model\ViewModel;
 use Laminas\Db\Adapter\AdapterInterface;
 use Laminas\Db\TableGateway\TableGateway;
@@ -30,10 +30,10 @@ class InstallController extends CoreUpdateController {
      * InstallController constructor.
      *
      * @param AdapterInterface $oDbAdapter
-     * @param ContactTable $oTableGateway
+     * @param BasketTable $oTableGateway
      * @since 1.0.0
      */
-    public function __construct(AdapterInterface $oDbAdapter, ContactTable $oTableGateway, $oServiceManager)
+    public function __construct(AdapterInterface $oDbAdapter, BasketTable $oTableGateway, $oServiceManager)
     {
         $this->oTableGateway = $oTableGateway;
         $this->sSingleForm = 'basketcontact-single';
@@ -58,13 +58,6 @@ class InstallController extends CoreUpdateController {
 
             $bTableExists = false;
 
-            try {
-                $this->oTableGateway->fetchAll(false);
-                $bTableExists = true;
-            } catch (\RuntimeException $e) {
-
-            }
-
             return new ViewModel([
                 'bTableExists' => $bTableExists,
                 'sVendor' => 'oneplace',
@@ -72,7 +65,6 @@ class InstallController extends CoreUpdateController {
             ]);
         } else {
             $sSetupConfig = $oRequest->getPost('plc_module_setup_config');
-
             $sSetupFile = 'vendor/oneplace/oneplace-basket-contact/data/install.sql';
             if(file_exists($sSetupFile)) {
                 echo 'got install file..';

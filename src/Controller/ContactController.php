@@ -36,10 +36,10 @@ class ContactController extends CoreEntityController {
      * ContactController constructor.
      *
      * @param AdapterInterface $oDbAdapter
-     * @param ContactTable $oTableGateway
+     * @param BasketTable $oTableGateway
      * @since 1.0.0
      */
-    public function __construct(AdapterInterface $oDbAdapter, BasketTable $oTableGateway, $oServiceManager)
+    public function __construct(AdapterInterface $oDbAdapter, ContactTable $oTableGateway, $oServiceManager)
     {
         $this->oTableGateway = $oTableGateway;
         $this->sSingleForm = 'basketcontact-single';
