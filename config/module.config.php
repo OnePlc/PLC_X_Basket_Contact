@@ -23,10 +23,28 @@ return [
     # Contact Module - Routes
     'router' => [
         'routes' => [
-            'basket-contact-setup' => [
-                'type'    => Literal::class,
+            'basket-contact' => [
+                'type'    => Segment::class,
                 'options' => [
-                    'route'    => '/basket/contact/setup',
+                    'route' => '/basket/contact[/:action[/:id]]',
+                    'constraints' => [
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id'     => '[0-9]+',
+                    ],
+                    'defaults' => [
+                        'controller' => Controller\ContactController::class,
+                        'action'     => 'index',
+                    ],
+                ],
+            ],
+            'basket-contact-setup' => [
+                'type'    => Segment::class,
+                'options' => [
+                    'route' => '/basket/contact/setup[/:action[/:id]]',
+                    'constraints' => [
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id'     => '[0-9]+',
+                    ],
                     'defaults' => [
                         'controller' => Controller\InstallController::class,
                         'action'     => 'checkdb',

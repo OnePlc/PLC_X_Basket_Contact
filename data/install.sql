@@ -10,3 +10,6 @@ INSERT INTO `core_form_tab` (`Tab_ID`, `form`, `title`, `subtitle`, `icon`, `cou
 INSERT INTO `core_form_field` (`Field_ID`, `type`, `label`, `fieldkey`, `tab`, `form`, `class`, `url_view`, `url_list`, `show_widget_left`, `allow_clear`, `readonly`, `tbl_cached_name`, `tbl_class`, `tbl_permission`) VALUES
 (NULL, 'partial', 'Contact', 'basket_contact', 'basket-contact', 'basket-single', 'col-md-12', '', '', '0', '1', '0', '', '', ''),
 (NULL, 'hidden', 'Contact', 'contact_idfs', 'basket-base', 'basket-single', 'col-md-3', '', '', '0', '1', '0', '', '', '');
+
+
+ALTER TABLE `basket` ADD `contact_idfs` int(11) NOT NULL DEFAULT 0 AFTER `label`;
