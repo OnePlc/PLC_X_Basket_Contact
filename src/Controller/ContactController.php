@@ -53,6 +53,44 @@ class ContactController extends CoreEntityController {
         }
     }
 
+    public function attachBasket($oContact) {
+        $oBasketTbl = CoreEntityController::$oServiceManager->get(BasketTable::class);
+        $aBaskets = [];
+        $oBasketsDB = $oBasketTbl->fetchAll(false,['contact_idfs' => $oContact->getID()]);
+        if(count($oBasketsDB) > 0) {
+            foreach($oBasketsDB as $oBasket) {
+                $aBaskets[] = $oBasket;
+            }
+        }
+
+        $aFields = [];
+        $aUserFields = CoreEntityController::$oSession->oUser->getMyFormFields();
+        if(array_key_exists('basket-single',$aUserFields)) {
+            $aFieldsTmp = $aUserFields['basket-single'];
+            if(count($aFieldsTmp) > 0) {
+                # add all contact-base fields
+                foreach($aFieldsTmp as $oField) {
+                    if($oField->tab == 'basket-base') {
+                        $aFields[] = $oField;
+                    }
+                }
+            }
+        }
+
+
+        # Pass Data to View - which will pass it to our partial
+        return [
+            # must be named aPartialExtraData
+            'aPartialExtraData' => [
+                # must be name of your partial
+                'contact_basket'=> [
+                    'oBaskets'=>$aBaskets,
+                    'aFields'=>['basket-base' => $aFields],
+                ]
+            ]
+        ];
+    }
+
     public function attachContact($oBasket) {
         $oContact = false;
         if($oBasket->contact_idfs != 0) {

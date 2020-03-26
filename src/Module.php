@@ -54,6 +54,7 @@ class Module {
 
         # Register Filter Plugin Hook
         CoreEntityController::addHook('basket-view-before',(object)['sFunction'=>'attachContact','oItem'=>new ContactController($oDbAdapter,$tableGateway,$container)]);
+        CoreEntityController::addHook('contact-view-before',(object)['sFunction'=>'attachBasket','oItem'=>new ContactController($oDbAdapter,$tableGateway,$container)]);
         //CoreEntityController::addHook('contacthistory-add-before-save',(object)['sFunction'=>'attachContactToBasket','oItem'=>new ContactController($oDbAdapter,$tableGateway,$container)]);
     }
 

@@ -1,0 +1,34 @@
+<?php
+# Only show partial if data is set
+if(array_key_exists('contact_basket',$this->aPartialData)) {
+    # add address form fields
+    $oBaskets = $this->aPartialData['contact_basket']['oBaskets'];
+    $aFields = $this->aPartialData['contact_basket']['aFields'];
+
+    if(count($oBaskets) == 0) { ?>
+        <div class="alert alert-info px-2 py-2">
+            <?=$this->translate('No Baskets yet')?>
+        </div>
+    <?php } else { ?>
+        <ul class="list-group">
+            <?php
+            foreach($oBaskets as $oBasket) { ?>
+                <li class="list-group-item">
+                    <div class="row">
+                        <a href="/basket/view/<?=$oBasket->getID()?>" title="Show Basket">
+                            Show Basket
+                        </a>
+                    </div>
+                </li>
+                <?php
+            }
+            ?>
+        </ul>
+        <?php
+    }
+} else { ?>
+    <div class="alert alert-danger px-2 py-2">
+        <?= $this->translate('Could not load basket data') ?>
+    </div>
+    <?php
+}
